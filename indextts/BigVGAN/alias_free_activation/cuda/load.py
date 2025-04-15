@@ -14,6 +14,18 @@ Set it to empty stringo avoid recompilation and assign arch flags explicity in e
 os.environ["TORCH_CUDA_ARCH_LIST"] = ""
 
 
+# 补丁修复：sources 路径含中文字符时，生成 build.ninja 乱码导致编译失败
+def fix_write_utf8(filename, new_content):
+    if os.path.exists(filename):
+        with open(filename, encoding="utf-8") as f:
+            content = f.read()
+        if content == new_content:
+            return
+    with open(filename, 'w', encoding="utf-8") as source_file:
+        source_file.write(new_content)
+cpp_extension._maybe_write = fix_write_utf8
+
+
 def load():
     # Check if cuda 11 is installed for compute capability 8.0
     cc_flag = []
