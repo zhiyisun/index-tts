@@ -192,13 +192,17 @@ class IndexTTS:
         for tensor in tokens:
             pad_len = max_len - tensor.size(1)
             if pad_len > 0:
-                padded = torch.nn.functional.pad(tensor, 
-                        (0, pad_len),
+                n = min(8, pad_len)
+                tensor = torch.nn.functional.pad(tensor, 
+                        (0, n),
                         value=self.cfg.gpt.stop_text_token
                 )
-                outputs.append(padded)
-            else:
-                outputs.append(tensor)
+                tensor = torch.nn.functional.pad(tensor, 
+                        (0, pad_len - n),
+                        value=self.cfg.gpt.start_text_token
+                )
+            tensor = tensor[:,:max_len]
+            outputs.append(tensor)
         tokens = torch.cat(outputs, dim=0)
         return tokens
     
