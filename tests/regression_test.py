@@ -23,6 +23,6 @@ if __name__ == "__main__":
 找来一只断了腿的兔子，喝下空间湖水，一天时间，兔子就完全好了。
 还想多做几次试验，可是身边没有试验的对象，就先放到一边，了解空间湖水可以饮用，而且对人有利，这些就足够了。
 感谢您的收听，下期再见！
-    '''
+    '''.replace("\n", "")
     tts.infer_fast(audio_prompt=prompt_wav, text=text, output_path=f"outputs/{text[:20]}.wav", verbose=True)
 
