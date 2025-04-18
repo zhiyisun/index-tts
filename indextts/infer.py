@@ -199,6 +199,20 @@ class IndexTTS:
                 outputs[1].append({"idx":idx,"sent":sent})
         return [item for item in outputs if item]
         
+    def bucket_sentences(self, sentences, enable):
+        """
+        Sentence data bucketing
+        """
+        max_len = max(len(s) for s in sentences)
+        half = max_len // 2
+        outputs = [[],[]]
+        for idx, sent in enumerate(sentences):
+            if enable == False or len(sent) <= half:
+                outputs[0].append({"idx":idx,"sent":sent})
+            else:
+                outputs[1].append({"idx":idx,"sent":sent})
+        return [item for item in outputs if item]
+        
     def pad_tokens_cat(self, tokens):
         if len(tokens) <= 1:return tokens[-1]
         max_len = max(t.size(1) for t in tokens)
