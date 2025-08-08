@@ -20,6 +20,3 @@ sentencepiece
 librosa
 gradio
 tqdm
-
-WeTextProcessing; platform_machine != "Darwin"
-wetext; platform_system == "Darwin"
