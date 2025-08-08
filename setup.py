@@ -56,6 +56,7 @@ setup(
         "sentencepiece",
         "librosa",
         "numpy",
+        "wetext",
     ],
     extras_require={
         "webui": ["gradio"],
